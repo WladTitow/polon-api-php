@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://absoluttrade.ru/B2BExchange" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://absoluttrade.ru/B2BExchange" name="B2BExchange" targetNamespace="http://absoluttrade.ru/B2BExchange">
+	<types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xs1="http://absoluttrade.ru/B2BExchange" targetNamespace="http://absoluttrade.ru/B2BExchange" attributeFormDefault="unqualified" elementFormDefault="qualified">
+			<xs:complexType name="ExcludedDate">
+				<xs:sequence>
+					<xs:element name="ExcludedDate" type="xs:date" nillable="true" minOccurs="0"/>
+					<xs:element name="ExcludedCode" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetBalanceResult">
+				<xs:sequence>
+					<xs:element name="Balance" type="xs:double" nillable="true" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetExcludedDatesResult">
+				<xs:sequence>
+					<xs:element name="ExcludedDate_Tab" nillable="true">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" type="tns:ExcludedDate" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetItemsAvailResult">
+				<xs:sequence>
+					<xs:element name="Material_Tab" type="tns:Material_Tab" nillable="true" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetMaterialDataResult">
+				<xs:sequence>
+					<xs:element name="MaterialText" type="xs:string" nillable="true"/>
+					<xs:element name="MaterialGroup" type="xs:string" nillable="true"/>
+					<xs:element name="UnitOfMeasurement" type="xs:string" nillable="true"/>
+					<xs:element name="MaterialCharacteristics" nillable="true">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" type="tns:MaterialCharacteristic" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetOperationResultResult">
+				<xs:sequence>
+					<xs:element name="DocumentNumber" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="OrderItems" type="tns:OrderItems" nillable="true"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetOrderListResult">
+				<xs:sequence>
+					<xs:element name="OrderList_Tab" type="tns:OrderList_Tab" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetOrderResult">
+				<xs:sequence>
+					<xs:element name="OrderDate" type="xs:date" nillable="true" minOccurs="0"/>
+					<xs:element name="OrderItems" type="tns:OrderItems" nillable="true" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetPriceDataResult">
+				<xs:sequence>
+					<xs:element name="Currency" type="xs:string" minOccurs="0"/>
+					<xs:element name="Price_Tab" type="tns:Price_Tab" nillable="true" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Material">
+				<xs:sequence>
+					<xs:element name="MaterialID" type="xs:string"/>
+					<xs:element name="AvailableCount" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MaterialCharacteristic">
+				<xs:sequence>
+					<xs:element name="CharName" type="xs:string"/>
+					<xs:element name="CharValue" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MaterialGroup">
+				<xs:sequence>
+					<xs:element name="MaterialGroup" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MaterialGroup_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:MaterialGroup" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MaterialID">
+				<xs:sequence>
+					<xs:element name="MaterialID" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MaterialID_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:MaterialID" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Material_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:Material" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="NewOrderDate">
+				<xs:sequence>
+					<xs:element name="NewOrderDate" type="xs:date" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Order">
+				<xs:sequence>
+					<xs:element name="DocumentNumber" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OrderItem">
+				<xs:sequence>
+					<xs:element name="DocumentNumber" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="PurchaseOrderNumber" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="MaterialID" type="xs:string"/>
+					<xs:element name="MaterialText" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="Quantity" type="xs:int"/>
+					<xs:element name="PosResult" type="xs:byte" nillable="true" minOccurs="0"/>
+					<xs:element name="PosError" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OrderItems">
+				<xs:sequence>
+					<xs:element name="item" type="tns:OrderItem" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OrderList">
+				<xs:sequence>
+					<xs:element name="DocumentNumber" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="OrderDate" type="xs:date" nillable="true" minOccurs="0"/>
+					<xs:element name="OrderAmount" type="xs:float" nillable="true" minOccurs="0"/>
+					<xs:element name="Signed" type="xs:byte"/>
+					<xs:element name="Deleted" type="xs:byte"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OrderList_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:OrderList" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Orders_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:Order" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Personnel">
+				<xs:sequence>
+					<xs:element name="Type" type="xs:string"/>
+					<xs:element name="LastName" type="xs:string"/>
+					<xs:element name="FirstName" type="xs:string"/>
+					<xs:element name="MiddleName" type="xs:string" minOccurs="0"/>
+					<xs:element name="DocType" type="xs:string"/>
+					<xs:element name="DocSeries" type="xs:string"/>
+					<xs:element name="DocNumber" type="xs:string"/>
+					<xs:element name="DocIssue" type="xs:string"/>
+					<xs:element name="DocIssueDate" type="xs:date"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Personnel_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:Personnel" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Price">
+				<xs:sequence>
+					<xs:element name="MaterialID" type="xs:string"/>
+					<xs:element name="Price" type="xs:float"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Price_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:Price" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetDeleteOrderResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetDeliveryRouteResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetFinalOrderResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetOrderChangeResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetOrderCreateResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SetSignOrderResult">
+				<xs:sequence>
+					<xs:element name="OperationID" type="xs:string" minOccurs="0"/>
+					<xs:element name="Result" type="xs:byte"/>
+					<xs:element name="ErrorMessage" type="xs:string" nillable="true" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Vehicle">
+				<xs:sequence>
+					<xs:element name="CarNumber" type="xs:string"/>
+					<xs:element name="TrailerNumber" type="xs:string" nillable="true" minOccurs="0"/>
+					<xs:element name="Personnel_Tab" type="tns:Personnel_Tab" nillable="true"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Vehicle_Tab">
+				<xs:sequence>
+					<xs:element name="item" type="tns:Vehicle" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="GetItemsAvail">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Werks" type="xs:string"/>
+						<xs:element name="Date" type="xs:date"/>
+						<xs:element name="MaterialID_Tab" type="tns:MaterialID_Tab" nillable="true"/>
+						<xs:element name="MaterialGroup_Tab" type="tns:MaterialGroup_Tab" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetItemsAvailResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetItemsAvailResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetMaterialData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MaterialID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetMaterialDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetMaterialDataResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetPriceData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Werks" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetPriceDataResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetPriceDataResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetExcludedDates">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Date_From" type="xs:date"/>
+						<xs:element name="Date_To" type="xs:date"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetExcludedDatesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetExcludedDatesResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetBalance">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Buyer" type="xs:string" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetBalanceResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetBalanceResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DocumentNumber" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetOrderResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreate">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Werks" type="xs:string"/>
+						<xs:element name="OrderDate" type="xs:date"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreateResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetOrderCreateResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreateExtended">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Buyer" type="xs:string"/>
+						<xs:element name="DeliveryPoint" type="xs:string"/>
+						<xs:element name="Werks" type="xs:string"/>
+						<xs:element name="OrderDate" type="xs:date"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreateExtendedResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetOrderCreateResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderChange">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DocumentNumber" type="xs:string"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderChangeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetOrderChangeResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetSignOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DocumentNumber" type="xs:string"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+						<xs:element name="NewOrderDate" type="tns:NewOrderDate" nillable="true"/>
+						<xs:element name="ItemsForTransfer" type="tns:OrderItems" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetSignOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetSignOrderResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetDeleteOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DocumentNumber" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetDeleteOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetDeleteOrderResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetFinalOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DocumentNumber" type="xs:string"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetFinalOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetFinalOrderResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetDeliveryRoute">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExpectedDate" type="xs:dateTime"/>
+						<xs:element name="Vehicle" type="tns:Vehicle"/>
+						<xs:element name="Orders_Tab" type="tns:Orders_Tab"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetDeliveryRouteResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetDeliveryRouteResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOperationResult">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OperationID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOperationResultResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetOperationResultResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreatePhys">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Email" type="xs:string" nillable="true"/>
+						<xs:element name="Werks" type="xs:string"/>
+						<xs:element name="OrderDate" type="xs:date"/>
+						<xs:element name="OrderItems" type="tns:OrderItems"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetOrderCreatePhysResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:SetOrderCreateResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderGUID">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OperationID" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderGUIDResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Status" type="xs:string"/>
+						<xs:element name="B2BOnly" type="xs:boolean"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="return" type="tns:GetOrderListResult"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</types>
+	<message name="GetItemsAvailRequestMessage">
+		<part name="parameters" element="tns:GetItemsAvail"/>
+	</message>
+	<message name="GetItemsAvailResponseMessage">
+		<part name="parameters" element="tns:GetItemsAvailResponse"/>
+	</message>
+	<message name="GetMaterialDataRequestMessage">
+		<part name="parameters" element="tns:GetMaterialData"/>
+	</message>
+	<message name="GetMaterialDataResponseMessage">
+		<part name="parameters" element="tns:GetMaterialDataResponse"/>
+	</message>
+	<message name="GetPriceDataRequestMessage">
+		<part name="parameters" element="tns:GetPriceData"/>
+	</message>
+	<message name="GetPriceDataResponseMessage">
+		<part name="parameters" element="tns:GetPriceDataResponse"/>
+	</message>
+	<message name="GetExcludedDatesRequestMessage">
+		<part name="parameters" element="tns:GetExcludedDates"/>
+	</message>
+	<message name="GetExcludedDatesResponseMessage">
+		<part name="parameters" element="tns:GetExcludedDatesResponse"/>
+	</message>
+	<message name="GetBalanceRequestMessage">
+		<part name="parameters" element="tns:GetBalance"/>
+	</message>
+	<message name="GetBalanceResponseMessage">
+		<part name="parameters" element="tns:GetBalanceResponse"/>
+	</message>
+	<message name="GetOrderRequestMessage">
+		<part name="parameters" element="tns:GetOrder"/>
+	</message>
+	<message name="GetOrderResponseMessage">
+		<part name="parameters" element="tns:GetOrderResponse"/>
+	</message>
+	<message name="SetOrderCreateRequestMessage">
+		<part name="parameters" element="tns:SetOrderCreate"/>
+	</message>
+	<message name="SetOrderCreateResponseMessage">
+		<part name="parameters" element="tns:SetOrderCreateResponse"/>
+	</message>
+	<message name="SetOrderCreateExtendedRequestMessage">
+		<part name="parameters" element="tns:SetOrderCreateExtended"/>
+	</message>
+	<message name="SetOrderCreateExtendedResponseMessage">
+		<part name="parameters" element="tns:SetOrderCreateExtendedResponse"/>
+	</message>
+	<message name="SetOrderChangeRequestMessage">
+		<part name="parameters" element="tns:SetOrderChange"/>
+	</message>
+	<message name="SetOrderChangeResponseMessage">
+		<part name="parameters" element="tns:SetOrderChangeResponse"/>
+	</message>
+	<message name="SetSignOrderRequestMessage">
+		<part name="parameters" element="tns:SetSignOrder"/>
+	</message>
+	<message name="SetSignOrderResponseMessage">
+		<part name="parameters" element="tns:SetSignOrderResponse"/>
+	</message>
+	<message name="SetDeleteOrderRequestMessage">
+		<part name="parameters" element="tns:SetDeleteOrder"/>
+	</message>
+	<message name="SetDeleteOrderResponseMessage">
+		<part name="parameters" element="tns:SetDeleteOrderResponse"/>
+	</message>
+	<message name="SetFinalOrderRequestMessage">
+		<part name="parameters" element="tns:SetFinalOrder"/>
+	</message>
+	<message name="SetFinalOrderResponseMessage">
+		<part name="parameters" element="tns:SetFinalOrderResponse"/>
+	</message>
+	<message name="SetDeliveryRouteRequestMessage">
+		<part name="parameters" element="tns:SetDeliveryRoute"/>
+	</message>
+	<message name="SetDeliveryRouteResponseMessage">
+		<part name="parameters" element="tns:SetDeliveryRouteResponse"/>
+	</message>
+	<message name="GetOperationResultRequestMessage">
+		<part name="parameters" element="tns:GetOperationResult"/>
+	</message>
+	<message name="GetOperationResultResponseMessage">
+		<part name="parameters" element="tns:GetOperationResultResponse"/>
+	</message>
+	<message name="SetOrderCreatePhysRequestMessage">
+		<part name="parameters" element="tns:SetOrderCreatePhys"/>
+	</message>
+	<message name="SetOrderCreatePhysResponseMessage">
+		<part name="parameters" element="tns:SetOrderCreatePhysResponse"/>
+	</message>
+	<message name="GetOrderGUIDRequestMessage">
+		<part name="parameters" element="tns:GetOrderGUID"/>
+	</message>
+	<message name="GetOrderGUIDResponseMessage">
+		<part name="parameters" element="tns:GetOrderGUIDResponse"/>
+	</message>
+	<message name="GetOrderListRequestMessage">
+		<part name="parameters" element="tns:GetOrderList"/>
+	</message>
+	<message name="GetOrderListResponseMessage">
+		<part name="parameters" element="tns:GetOrderListResponse"/>
+	</message>
+	<portType name="B2BExchangePortType">
+		<operation name="GetItemsAvail">
+			<input message="tns:GetItemsAvailRequestMessage"/>
+			<output message="tns:GetItemsAvailResponseMessage"/>
+		</operation>
+		<operation name="GetMaterialData">
+			<input message="tns:GetMaterialDataRequestMessage"/>
+			<output message="tns:GetMaterialDataResponseMessage"/>
+		</operation>
+		<operation name="GetPriceData">
+			<input message="tns:GetPriceDataRequestMessage"/>
+			<output message="tns:GetPriceDataResponseMessage"/>
+		</operation>
+		<operation name="GetExcludedDates">
+			<input message="tns:GetExcludedDatesRequestMessage"/>
+			<output message="tns:GetExcludedDatesResponseMessage"/>
+		</operation>
+		<operation name="GetBalance">
+			<input message="tns:GetBalanceRequestMessage"/>
+			<output message="tns:GetBalanceResponseMessage"/>
+		</operation>
+		<operation name="GetOrder">
+			<input message="tns:GetOrderRequestMessage"/>
+			<output message="tns:GetOrderResponseMessage"/>
+		</operation>
+		<operation name="SetOrderCreate">
+			<input message="tns:SetOrderCreateRequestMessage"/>
+			<output message="tns:SetOrderCreateResponseMessage"/>
+		</operation>
+		<operation name="SetOrderCreateExtended">
+			<input message="tns:SetOrderCreateExtendedRequestMessage"/>
+			<output message="tns:SetOrderCreateExtendedResponseMessage"/>
+		</operation>
+		<operation name="SetOrderChange">
+			<input message="tns:SetOrderChangeRequestMessage"/>
+			<output message="tns:SetOrderChangeResponseMessage"/>
+		</operation>
+		<operation name="SetSignOrder">
+			<input message="tns:SetSignOrderRequestMessage"/>
+			<output message="tns:SetSignOrderResponseMessage"/>
+		</operation>
+		<operation name="SetDeleteOrder">
+			<input message="tns:SetDeleteOrderRequestMessage"/>
+			<output message="tns:SetDeleteOrderResponseMessage"/>
+		</operation>
+		<operation name="SetFinalOrder">
+			<input message="tns:SetFinalOrderRequestMessage"/>
+			<output message="tns:SetFinalOrderResponseMessage"/>
+		</operation>
+		<operation name="SetDeliveryRoute">
+			<input message="tns:SetDeliveryRouteRequestMessage"/>
+			<output message="tns:SetDeliveryRouteResponseMessage"/>
+		</operation>
+		<operation name="GetOperationResult">
+			<input message="tns:GetOperationResultRequestMessage"/>
+			<output message="tns:GetOperationResultResponseMessage"/>
+		</operation>
+		<operation name="SetOrderCreatePhys">
+			<input message="tns:SetOrderCreatePhysRequestMessage"/>
+			<output message="tns:SetOrderCreatePhysResponseMessage"/>
+		</operation>
+		<operation name="GetOrderGUID">
+			<input message="tns:GetOrderGUIDRequestMessage"/>
+			<output message="tns:GetOrderGUIDResponseMessage"/>
+		</operation>
+		<operation name="GetOrderList">
+			<input message="tns:GetOrderListRequestMessage"/>
+			<output message="tns:GetOrderListResponseMessage"/>
+		</operation>
+	</portType>
+	<binding name="B2BExchangeSoapBinding" type="tns:B2BExchangePortType">
+		<soapbind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetItemsAvail">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetItemsAvail"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMaterialData">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetMaterialData"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPriceData">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetPriceData"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExcludedDates">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetExcludedDates"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetBalance">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetBalance"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrder">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrder"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreate">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreate"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreateExtended">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreateExtended"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderChange">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderChange"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetSignOrder">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetSignOrder"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetDeleteOrder">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetDeleteOrder"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetFinalOrder">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetFinalOrder"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetDeliveryRoute">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetDeliveryRoute"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOperationResult">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOperationResult"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreatePhys">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreatePhys"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrderGUID">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrderGUID"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrderList">
+			<soapbind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrderList"/>
+			<input>
+				<soapbind:body use="literal"/>
+			</input>
+			<output>
+				<soapbind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<binding name="B2BExchangeSoap12Binding" type="tns:B2BExchangePortType">
+		<soap12bind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetItemsAvail">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetItemsAvail"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetMaterialData">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetMaterialData"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetPriceData">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetPriceData"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetExcludedDates">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetExcludedDates"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetBalance">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetBalance"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrder">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrder"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreate">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreate"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreateExtended">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreateExtended"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderChange">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderChange"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetSignOrder">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetSignOrder"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetDeleteOrder">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetDeleteOrder"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetFinalOrder">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetFinalOrder"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetDeliveryRoute">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetDeliveryRoute"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOperationResult">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOperationResult"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="SetOrderCreatePhys">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:SetOrderCreatePhys"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrderGUID">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrderGUID"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="GetOrderList">
+			<soap12bind:operation style="document" soapAction="http://absoluttrade.ru/B2BExchange#B2BExchange:GetOrderList"/>
+			<input>
+				<soap12bind:body use="literal"/>
+			</input>
+			<output>
+				<soap12bind:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="B2BExchange">
+		<port name="B2BExchangeSoap" binding="tns:B2BExchangeSoapBinding">
+			<documentation> 
+				<wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+			</documentation>
+			<soapbind:address location="https://www.absoluttrade.ru:44443/dmz/ws/B2BExchange.1cws"/>
+		</port>
+		<port name="B2BExchangeSoap12" binding="tns:B2BExchangeSoap12Binding">
+			<soap12bind:address location="https://www.absoluttrade.ru:44443/dmz/ws/B2BExchange.1cws"/>
+		</port>
+	</service>
+</definitions>
