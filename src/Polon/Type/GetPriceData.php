@@ -1,8 +1,9 @@
 <?php
 
 namespace Polon\Type;
+use Phpro\SoapClient\Type\RequestInterface as RequestInterface;
 
-class GetPriceData
+class GetPriceData implements RequestInterface
 {
 
     /**
@@ -30,6 +31,13 @@ class GetPriceData
         return $new;
     }
 
+    /**
+     * @param string $werks
+     */
+    public function __construct($werks)
+    {
+        $this->Werks = $werks;
+    }
 
 }
 

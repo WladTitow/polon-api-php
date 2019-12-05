@@ -2,7 +2,8 @@
 
 namespace Polon\Type;
 
-class GetPriceDataResponse
+use Phpro\SoapClient\Type\ResultInterface;
+class GetPriceDataResponse implements ResultInterface
 {
 
     /**
